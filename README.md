@@ -9,7 +9,7 @@ Currently, Diamond will not run on Gentoo, Fedora, etc., because of the way Diam
 ### Running
 If you are running a distribution which does not name the first ethernet interface eth0 
 
-    sh unflex
+    sh unflex /path/to/license.dat
 If you want to see the outputs of *gethostid()* and the hardware address reported by eth0
 
     make && ./unflex-test
