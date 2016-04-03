@@ -10,8 +10,8 @@ Currently, Diamond will not run on Gentoo, Fedora, etc., because of the way Diam
 If you are running a distribution which does not name the first ethernet interface eth0. Notice: This will launch Diamond and requires that diamond is in your path
 
 ``` bash
-    sh unflex /path/to/license.dat # This stores the location for future use in LICENSE.unf
-    sh unflex # Once you successfully load your license you don't need to specify the path anymore
+sh unflex /path/to/license.dat # This stores the location for future use in LICENSE.unf
+sh unflex # Once you successfully load your license you don't need to specify the path anymore
 ```
 If Diamond is not in your path you will want to add it
 ``` bash
