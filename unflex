@@ -1,0 +1,90 @@
+#!/bin/bash
+# This script was to created as a work around to the poor implimentation of FLEX
+# by Lattice in their software, Diamond.
+# Author: @Gzxgzxgzx
+# Email:  h@wfvl.de
+
+# LICENSING
+FILE="$(pwd)/LICENSE.unf"
+HOSTID=""
+
+# SYSTEM
+MODULE="dummy"
+LIBMOD="/lib/modules"
+
+# COLORS
+BLD=$(tput bold)
+RST=$(tput sgr0)
+GRN=$(tput setf 2)
+RED=$(tput setf 4)
+
+# OUTPUT
+TITLE="Unflex"
+OK="$BLD${GRN}OK!$RST"
+FAILED="$BLD${RED}FAILED!$RST"
+
+
+# Require access to sudo
+if [ `sudo -n uptime 2>&1 | grep "load" | wc -l` -eq 0 ]
+then
+  echo "This script requires access to the sudo command"
+  exit
+fi
+
+
+# Load file
+if [[ $# -gt 0 ]]; then
+  FILE=$1
+fi
+echo "License: $FILE"
+
+# Find licensed MAC address
+HOSTID=$(grep -io -m 2 '[0-9a-f]\{12\}' $FILE | tail -n1)
+if [[ -z $HOSTID ]]; then
+  echo "Error: Could not load HOSTID from license!"
+  exit
+else
+  # Save file location for next time
+  rm LICENSE.unf &> /dev/null
+  echo "HOSTID: $HOSTID"
+  echo $HOSTID >> LICENSE.unf
+fi
+
+# Spoof MAC address on eth0
+echo "Starting"
+printf "Dummy Module......"
+if [ `find $LIBMOD | grep net/$MODULE.ko` ]
+then
+  echo $OK
+  # Add module
+  printf "Adding Module....."
+  sudo modprobe $MODULE
+  echo $OK
+  # Create iface
+  printf "Creating eth0....."
+  sudo ip link set name eth0 dev dummy0
+  echo $OK
+  # Spoof HW_ADDR
+  printf "Spoofing MAC......"
+  sudo ifconfig eth0 hw ether $HOSTID
+  echo "$OK"
+
+  # Start Diamond
+  diamond
+
+  # Cleanup
+  echo "Cleaning up..."
+  # Remove iface
+  printf "Removing eth0....."
+  sudo ip link delete eth0 type dummy
+  echo $OK
+  # Remove module
+  printf "Removing module..."
+  sudo rmmod dummy
+  echo -e "$OK"
+else
+  echo $FAILED
+  echo "Error: Module \"$MODULE\" does not exist (!)"
+fi
+
+# Next time
