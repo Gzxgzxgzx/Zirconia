@@ -7,7 +7,9 @@ Currently, Diamond will not run on Gentoo, Fedora, etc., because of the way Diam
     cd Zirconia && make
     
 ### Running
-If you are running a distribution which does not name the first ethernet interface eth0. Notice: This will launch Diamond and requires that diamond is in your path
+Always make sure that you have a valid license for Diamond.
+
+If you are running a distribution which does not name the first ethernet interface eth0. Notice: This will launch Diamond and requires that it is in your path.
 
 ``` bash
 sh unflex /path/to/license.dat # This stores the location for future use in LICENSE.unf
