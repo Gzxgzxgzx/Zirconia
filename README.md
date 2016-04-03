@@ -4,6 +4,7 @@ Currently, Diamond will not run on Gentoo, Fedora, etc., because of the way Diam
 
 ### Installing
     git clone https://github.com/Gzxgzxgzx/Zirconia.git
+    cd Zirconia && make
     
 ### Running
 If you are running a distribution which does not name the first ethernet interface eth0 
