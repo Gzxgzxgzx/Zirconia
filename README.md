@@ -1,10 +1,16 @@
 ## Zirconia
-Zirconia is a set of scripts which aim to correct the poor support for Lattice Diamond on Linux.
+**Zirconia** is a set of scripts which aim to correct the poor support for Lattice Diamond on Linux.
 Currently, Diamond will not run on Gentoo, Fedora, etc., because of the way Diamond checks for your MAC address (see: [here](https://github.com/Gzxgzxgzx/ProjectZirconia/blob/master/diamond.strace#L1867)).
 
-Notice: This was not created as a patch. It is a script you will use to launch Diamond every time.
+**Notice:** This was not created as a patch. It is a script you will use to launch Diamond every time.
 
-Errors: If the script is not working please create an issue with relevant information [here](https://github.com/Gzxgzxgzx/Zirconia/issues/new) so we can fix it.
+**Errors:** If the script is not working please create an issue with relevant information [here](https://github.com/Gzxgzxgzx/Zirconia/issues/new) so we can fix it.
+
+### How Do I Know If I Need This?
+Open up a terminal and run the following command. If your first networking interface isn't named "eth0," then you need this script.
+``` bash
+ifconfig
+```
 
 ### Installing
     git clone https://github.com/Gzxgzxgzx/Zirconia.git
